@@ -14,7 +14,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/all.dart';
 
 class HomeScreen extends HookWidget {
-  
   final searchedDrugsContentProvider = StateProvider<List<DrugModel>>((ref) {
     return ref.read(allDrugsProvider).state;
   });
@@ -97,29 +96,32 @@ class HomeScreen extends HookWidget {
                                 amount: drug_detail.amount,
                                 dosage: drug_detail.dosage,
                                 img_url: drug_detail.img_url,
-                                onTap: () async{
-
+                                onTap: () async {
                                   ShoppingCartModel shoppingCartModel =
-                                  ShoppingCartModel(id: drug_detail.id.toString(),
-                                      drug_name: drug_detail.drug_name,
-                                      drug_type: drug_detail.drug_type,
-                                      drug_category: drug_detail.drug_category,
-                                      amount: drug_detail.amount,
-                                      dosage: drug_detail.dosage,
-                                      img_url: drug_detail.img_url,
-                                      total_cart_items: "0");
+                                      ShoppingCartModel(
+                                          id: drug_detail.id.toString(),
+                                          drug_name: drug_detail.drug_name,
+                                          drug_type: drug_detail.drug_type,
+                                          drug_category:
+                                              drug_detail.drug_category,
+                                          amount: drug_detail.amount,
+                                          dosage: drug_detail.dosage,
+                                          img_url: drug_detail.img_url,
+                                          total_cart_items: "0");
 
-                                  final existing_cart_detail = await DrugRepository.getSingleCartDetail(shoppingCartModel.id.toString() );
+                                  final existing_cart_detail =
+                                      await DrugRepository.getSingleCartDetail(
+                                          shoppingCartModel.id.toString());
 
-                                  if (existing_cart_detail != null){
-                                    shoppingCartModel.total_cart_items = existing_cart_detail.total_cart_items;
+                                  if (existing_cart_detail != null) {
+                                    shoppingCartModel.total_cart_items =
+                                        existing_cart_detail.total_cart_items;
 
-                                    context.read(totalPacks).state = shoppingCartModel.total_cart_items;
-
-                                  }else{
+                                    context.read(totalPacks).state =
+                                        shoppingCartModel.total_cart_items;
+                                  } else {
                                     shoppingCartModel.total_cart_items = "0";
                                     context.read(totalPacks).state = "0";
-                                    
                                   }
 
                                   Navigator.of(context).pushNamed(
@@ -132,17 +134,16 @@ class HomeScreen extends HookWidget {
                       Positioned(
                         bottom: 0,
                         child: InkWell(
-                          onTap: () async{
+                          onTap: () async {
+                            //FETCH CART DATA
+                            var all_cart = await DrugRepository.getDrugs();
 
-                              //FETCH CART DATA
-                              var all_cart = await DrugRepository.getDrugs();
+                            context.read(allCartProvider).state = all_cart;
 
-                              context.read(allCartProvider).state = all_cart;
-                              
-                              Navigator.of(context).pushNamed(Routes.cart_screen);
-                            },
-                            onLongPress: () {
-                              Navigator.of(context).pushNamed(Routes.cart_screen);
+                            Navigator.of(context).pushNamed(Routes.cart_screen);
+                          },
+                          onLongPress: () {
+                            Navigator.of(context).pushNamed(Routes.cart_screen);
                           },
                           child: BottomButton(
                             total_drugs: total_drugs,

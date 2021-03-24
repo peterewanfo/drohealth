@@ -16,9 +16,15 @@ class DetailsScreen extends HookWidget {
 
   DetailsScreen({this.shoppingCartModel});
 
+  final totalDrugProvider = StateProvider<String>((ref) {
+    return DrugRepository.getTotalDrugs();
+  });
+
   @override
   Widget build(BuildContext context) {
     useProvider(totalPacks);
+
+    useProvider(cartNotifierProvider);
 
     DrugRepository.init();
     final total_drugs = DrugRepository.getTotalDrugs();
@@ -75,7 +81,12 @@ class DetailsScreen extends HookWidget {
                                     builder: (BuildContext context,
                                         AsyncSnapshot<dynamic> snapshot) {
                                       return snapshot.hasData
-                                          ? Text(snapshot.data.toString(),
+                                          ? Text(
+                                              context
+                                                  .read(cartNotifierProvider)
+                                                  .all_carts
+                                                  .length
+                                                  .toString(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText2
@@ -132,7 +143,7 @@ class DetailsScreen extends HookWidget {
                                         .textTheme
                                         .bodyText1
                                         .copyWith(fontWeight: FontWeight.bold)),
-                                SizedBox(height: 6.0),
+                                SizedBox(height: 20.0),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -168,7 +179,7 @@ class DetailsScreen extends HookWidget {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 15.0,
+                                  height: 20.0,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -197,11 +208,7 @@ class DetailsScreen extends HookWidget {
                                                   InkWell(
                                                     onTap: () {
                                                       int total = (int.parse(
-                                                              context
-                                                                  .read(
-                                                                      totalPacks)
-                                                                  .state)) +
-                                                          (int.parse(context
+                                                          context
                                                               .read(totalPacks)
                                                               .state));
 
@@ -283,6 +290,7 @@ class DetailsScreen extends HookWidget {
                                         ProductDetailSegment(
                                           title: "3x10",
                                           heading: "pack size",
+                                          icon_string: "assets/icons/pills.png",
                                         ),
                                         SizedBox(
                                           height: 8.0,
@@ -290,17 +298,20 @@ class DetailsScreen extends HookWidget {
                                         ProductDetailSegment(
                                           title: shoppingCartModel.drug_name,
                                           heading: "constituents",
+                                          icon_string: "assets/icons/meds.png",
                                         ),
                                         SizedBox(height: 8.0),
                                         ProductDetailSegment(
                                           title: "Packs",
                                           heading: "Dispensed By",
+                                          icon_string: "assets/icons/pills.png",
                                         ),
                                       ],
                                     ),
                                     ProductDetailSegment(
                                       title: "asdf",
                                       heading: "Product Id",
+                                      icon_string: "assets/icons/qr-code.png",
                                     ),
                                   ],
                                 ),

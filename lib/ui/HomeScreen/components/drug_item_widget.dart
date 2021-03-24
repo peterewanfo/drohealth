@@ -45,7 +45,8 @@ class DrugItemWidget extends HookWidget {
                       height: 140.0,
                       width: double.infinity,
                       child: FittedBox(
-                          fit: BoxFit.cover, child: Image.asset("assets/icons/" + img_url)))),
+                          fit: BoxFit.cover,
+                          child: Image.asset("assets/icons/" + img_url)))),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0, top: 5.0),
@@ -53,16 +54,14 @@ class DrugItemWidget extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         Text("$drug_name",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
                                 .copyWith(
                                     color: Colors.black,
-                                    fontWeight: FontWeight.bold)
-                        ),
-                        SizedBox(width:8.0),
+                                    fontWeight: FontWeight.bold)),
+                        SizedBox(width: 8.0),
                         Text(
                           "$drug_category",
                           style: Theme.of(context)
@@ -81,20 +80,23 @@ class DrugItemWidget extends HookWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(top:8.0, right: 8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25.0),
-                                color: CustomColors.customGrey,
-                              ),
-                              padding: EdgeInsets.all(6.0),
-                              child: Text("N$amount", style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              .copyWith(color: Colors.white),)
-                            ),
+                                margin: EdgeInsets.only(top: 8.0, right: 8.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25.0),
+                                  color: Colors.grey,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 6.0, horizontal: 12.0),
+                                child: Text(
+                                  "N$amount",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      .copyWith(
+                                          color: Colors.white, fontSize: 12.0),
+                                )),
                           ],
                         )
-
                       ]),
                 ),
               )

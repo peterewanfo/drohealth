@@ -24,8 +24,8 @@ class CartScreen extends HookWidget {
 
     useProvider(cartNotifierProvider);
 
-    DrugRepository.init();
-    final total_drugs = DrugRepository.getTotalDrugs();
+    // DrugRepository.init();
+    // final total_drugs = DrugRepository.getTotalDrugs();
 
     return Scaffold(
       body: SafeArea(
@@ -88,29 +88,11 @@ class CartScreen extends HookWidget {
                                       borderRadius: BorderRadius.circular(20),
                                       color: CustomColors.colorWhite),
                                   child: Center(
-                                      child: FutureBuilder(
-                                    future: total_drugs,
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<dynamic> snapshot) {
-                                      return snapshot.hasData
-                                          ? Text(snapshot.data.toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2
-                                                  .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black))
-                                          : Text("0",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2
-                                                  .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black));
-                                    },
-                                  )))
+                                      child: Text(context
+                                          .read(cartNotifierProvider)
+                                          .all_carts
+                                          .length
+                                          .toString())))
                             ]),
                       ),
                     ],

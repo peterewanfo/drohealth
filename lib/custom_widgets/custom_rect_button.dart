@@ -1,9 +1,7 @@
-
 import 'package:drohealth/style/__style.dart';
 import 'package:flutter/material.dart';
 
 class CustomRectButton extends StatelessWidget {
-
   final String label;
   final Function onTap;
   final Color colors;
@@ -21,7 +19,7 @@ class CustomRectButton extends StatelessWidget {
     return Center(
       child: InkWell(
         radius: 15.0,
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(5.0),
         onTap: onTap,
         child: Container(
           height: 50.0,
@@ -32,7 +30,10 @@ class CustomRectButton extends StatelessWidget {
           child: Center(
               child: Text(
             this.label,
-            style: Theme.of(context).textTheme.button.copyWith(color: textColor, fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .button
+                .copyWith(color: textColor, fontWeight: FontWeight.bold),
           )),
         ),
       ),
